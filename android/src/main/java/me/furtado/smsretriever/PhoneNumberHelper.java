@@ -83,6 +83,10 @@ final class PhoneNumberHelper {
                 .build();
 
         final GoogleApiClient googleApiClient = getGoogleApiClient(context, activity);
+        if(googleApiClient == null){
+            promiseReject(SEND_INTENT_ERROR_TYPE, SEND_INTENT_ERROR_MESSAGE);
+            return;
+        }
 
         final PendingIntent intent = Auth.CredentialsApi
                 .getHintPickerIntent(googleApiClient, request);
@@ -112,7 +116,11 @@ final class PhoneNumberHelper {
                 builder = builder.enableAutoManage(fragmentActivity, mApiClientOnConnectionFailedListener);
             }
 
-            mGoogleApiClient = builder.build();
+            try {
+                mGoogleApiClient = builder.build();
+            }    catch (Exception e){
+
+            }
         }
 
         return mGoogleApiClient;
