@@ -33,5 +33,6 @@ android {
 
 dependencies {
   implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-  implementation 'com.google.android.gms:play-services-auth:17.0.0'
+  implementation 'com.google.android.gms:play-services-auth:20.3.0'
+  implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
 }
