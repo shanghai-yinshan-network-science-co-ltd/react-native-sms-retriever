@@ -1,7 +1,10 @@
 package me.furtado.smsretriever;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Promise;
@@ -57,7 +60,11 @@ final class SmsHelper {
         final IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
 
         try {
-            mContext.registerReceiver(mReceiver, intentFilter);
+            if (Build.VERSION.SDK_INT >= 34) {
+                mContext.registerReceiver(mReceiver, intentFilter, Context.RECEIVER_EXPORTED);
+            } else {
+                mContext.registerReceiver(mReceiver, intentFilter);
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
